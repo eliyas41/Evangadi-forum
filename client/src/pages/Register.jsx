@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 import axios from '../axiosConfig'
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-
+  const navigate = useNavigate()
   const userNameDom = useRef(null)
   const firstNameDom = useRef(null)
   const lastNameDom = useRef(null)
@@ -24,26 +25,24 @@ const Register = () => {
       !emailValue ||
       !passValue
     ) {
-      alert('Please provide all required information')
+      // console.log('Please provide all required information')
       return;
     }
     try {
       await axios.post('/users/register', {
-        username: userNameDom.current.value,
-        firstname: firstNameDom.current.value,
-        lastname: lastNameDom.current.value,
-        email: emailDom.current.value,
-        password: passwordDom.current.value
+        username: usernameValue,
+        firstname: firstnameValue,
+        lastname: lastnameValue,
+        email: emailValue,
+        password: passValue
       })
-      console.log('Registration Successful!')
+      // console.log('Registration Successful!')
+      navigate('/login')
     } catch (err) {
       console.log(err.message)
       console.log("Username or Email already in use.")
     }
   }
-
-
-
 
   return (
     <section>
