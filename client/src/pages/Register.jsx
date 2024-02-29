@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate()
+
+  // References for input fields and form submission.
   const userNameDom = useRef(null)
   const firstNameDom = useRef(null)
   const lastNameDom = useRef(null)
