@@ -22,12 +22,14 @@ const Login = () => {
       return;
     }
     try {
-      await axios.post('/users/login', {
+      const { data } = await axios.post('/users/login', {
         email: emailValue,
         password: passValue
       })
       // console.log('Registration Successful!')
-      navigate('/')
+      console.log(data)
+      localStorage.setItem("token", data.token)
+      // navigate('/')
     } catch (err) {
       console.log(err?.response?.data)
       console.log("Something went wrong!")
