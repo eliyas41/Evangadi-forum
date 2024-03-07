@@ -1,12 +1,12 @@
 import React from 'react'
 
-const SignUp = () => {
+const SignUp = ({ setCurrentPage }) => {
   return (
     <div className='col card p-5 text-center'>
       <div>
         <h3 className='m-3'>Join the network</h3>
         <p className='mb-5'>Already have an account?{" "}
-          <a href="" className='fw-semibold text-decoration-non text-warning'> Sing in</a>
+          <a href="#" onClick={() => setCurrentPage("login")} className='fw-semibold text-decoration-non text-warning'> Sing in</a>
         </p>
       </div>
 
@@ -18,6 +18,7 @@ const SignUp = () => {
 
             <input type="text" className='form-control p-3' placeholder='Last Name' />
           </div>
+          <input type="text" className='form-control p-3' placeholder='User Name' />
           <input type="password" className='form-control p-3' placeholder='password' />
         </div>
 
@@ -29,7 +30,7 @@ const SignUp = () => {
           <button type='submit' className='btn btn-primary action__btn fs-5 fw-semibold'>Agree and join</button>
           <div className='mt-3'>
             <p className='d-flex justify-content-center'>
-              <a href="" className='fw-semibold text-decoration-none text-warning'>Already have an account?</a>
+              <a href="#" onClick={() => setCurrentPage("login")} className='fw-semibold text-decoration-none text-warning'>Already have an account?</a>
             </p>
           </div>
         </div>

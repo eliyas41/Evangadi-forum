@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/Header/Header'
 import bg from "../../assets/bg.jpg"
 import LogIn from '../../components/LogIn/LogIn'
@@ -7,6 +7,8 @@ import SignUp from '../../components/SignUp/SignUp'
 // import Footer from '../Footer/Footer'
 
 const Landing = () => {
+  const [currentPage, setCurrentPage] = useState("login")
+
   return (
     <section>
       <Header />
@@ -17,8 +19,8 @@ const Landing = () => {
       }}>
         <section className='container d-md-flex pt-5 gap-5'>
           {/* form login/sign-up */}
-          {/* <LogIn /> */}
-          <SignUp />
+          {currentPage === "login" && <LogIn setCurrentPage={setCurrentPage} />}
+          {currentPage === "signup" && <SignUp setCurrentPage={setCurrentPage} />}
 
           {/* welcome message */}
           <div className='col mt-5'>
