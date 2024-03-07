@@ -3,7 +3,7 @@ import logo from "../../assets/evangadi-logo-black.png"
 
 const Header = () => {
   return (
-    <section>
+    <section className='sticky-top custom-sticky'>
       <nav class="navbar p-3 navbar-expand-lg">
         <div class="container">
           <a class="navbar-brand" href="#"><img src={logo} alt="EvangadiLogo" /></a>
