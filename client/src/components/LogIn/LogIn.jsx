@@ -1,6 +1,41 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useNavigate } from "react-router-dom";
+import axios from '../../axiosConfig';
 
 const LogIn = ({ setCurrentPage }) => {
+  const navigate = useNavigate();
+
+  // Reference for the username and password fields.
+  const emailDom = useRef(null)
+  const passwordDom = useRef(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    // get values from the input fields
+    let emailValue = emailDom.current.value
+    let passValue = passwordDom.current.value
+    if (
+      !emailValue ||
+      !passValue
+    ) {
+      // console.log('Please provide all required information')
+      return;
+    }
+    try {
+      const { data } = await axios.post('/users/login', {
+        email: emailValue,
+        password: passValue
+      })
+      // console.log('Registration Successful!')
+      console.log(data)
+      localStorage.setItem("token", data.token)
+      navigate('/register')
+    } catch (err) {
+      console.log(err?.response?.data)
+      console.log("Something went wrong!")
+    }
+  }
+
   return (
     <div className='col card p-5 text-center'>
       <div>
@@ -10,11 +45,11 @@ const LogIn = ({ setCurrentPage }) => {
         </p>
       </div>
 
-      <form action="">
+      <form onSubmit={handleSubmit} action="">
         <div className='d-flex flex-column gap-3'>
-          <input type="email" className='form-control p-3' placeholder='Email address' />
+          <input ref={emailDom} type="email" className='form-control p-3' placeholder='Email address' />
 
-          <input type="password" className='form-control p-3' placeholder='password' />
+          <input ref={passwordDom} type="password" className='form-control p-3' placeholder='password' />
         </div>
 
         <div className='mt-3'>
@@ -31,4 +66,9 @@ const LogIn = ({ setCurrentPage }) => {
   )
 }
 
-export default LogIn
+export default LogIn;
+
+// Handles form submission for login page         . Redirects user to homepage if successful. Otherwise displays error message.
+// Handles form submission for login page. If the user is not logged in, it sends a post request with email and password data to /
+// Handles the submission of the login form. If successful, redirects user to dashboard page. Otherwise displays error message.
+// Handles form submission for login page. Redirects user to dashboard if successful.
