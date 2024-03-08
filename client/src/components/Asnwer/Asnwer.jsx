@@ -4,7 +4,6 @@ import axios from "../../axiosConfig.js";
 import { AppState } from "../../App.js";
 import Header from "../Header/Header";
 import { PiUserCircleDuotone } from "react-icons/pi";
-import { FaAngleRight } from "react-icons/fa6";
 
 const Answer = () => {
   const location = useLocation();
@@ -72,7 +71,7 @@ const Answer = () => {
       });
       //  console.log(questionid)
 
-      // console.log(response.data); // Log the response data
+      // console.log(response.data);
       setData(response.data);
       console.log(response.data)
     } catch (error) {
@@ -110,34 +109,26 @@ const Answer = () => {
           <div>
             {data.allanswer &&
               data.allanswer.map((item, index) => (
-                <a
-                  href="#"
+                <div
                   key={index}
                   className="text-decoration-none text-black"
                 >
                   <hr />
-                  {/* user and arow container */}
-                  <div className="d-flex justify-content-between">
-                    <div className="d-md-flex align-items-center">
-                      {/* user and question  */}
-                      <div className="user">
-                        {/* user */}
-                        <div>
-                          <PiUserCircleDuotone size={100} />
-                        </div>
-                        {/* <div>Fitsum </div> */}
-                        <div>{user.username}</div>
-                      </div>
+                  {/* user and arrow container */}
+                  <div className="d-md-flex align-items-center">
+                    {/* user and question  */}
+                    <div className="d-flex flex-column align-items-center gap-3">
+                      {/* user */}
                       <div>
-                        <p>{item.answer}</p>
+                        <PiUserCircleDuotone size={100} />
                       </div>
+                      <div>{user.username}</div>
                     </div>
-
-                    {/* arow */}
-                    {/* <div className="align-items-center">
-                </div> */}
+                    <div>
+                      <p>{item.answer}</p>
+                    </div>
                   </div>
-                </a>
+                </div>
               ))}
           </div>
         </div>
