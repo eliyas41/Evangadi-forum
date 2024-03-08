@@ -29,8 +29,8 @@
 import React, { useContext } from "react";
 import Header from "../../components/Header/Header";
 import "../../index.css";
-import Question from "../../components/Question/Question";
-import AskQuestion from "../../components/AskQuestion/AskQuestion";
+// import Question from "../../components/Question/Question";
+// import AskQuestion from "../../components/AskQuestion/AskQuestion";
 import { useNavigate, Link } from "react-router-dom";
 import { PiUserCircleDuotone } from "react-icons/pi";
 import { FaAngleRight } from "react-icons/fa6";
@@ -38,8 +38,8 @@ import { AppState } from "../../App";
 
 const Home = () => {
   const { user, question } = useContext(AppState);
-  console.log(question);
-  console.log(user);
+  // console.log(question);
+  // console.log(user.username);
 
   const navigate = useNavigate();
   const handleAnswerClick = () => {
@@ -68,7 +68,7 @@ const Home = () => {
           </button> */}
 
           <p className="fw-semibold">
-            <span className="text-warning">Welcome </span>{user.username}
+            <span className="text-warning">Welcome, </span>{user.username}
           </p>
         </div>
 
@@ -97,7 +97,7 @@ const Home = () => {
                   </div>
                   <div>
                     {/* arrow */}
-                    <FaAngleRight />
+                    <FaAngleRight size={30} />
                   </div>
                 </div>
               </Link>

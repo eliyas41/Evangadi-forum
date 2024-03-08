@@ -40,7 +40,7 @@ const SignUp = ({ setCurrentPage }) => {
         password: passValue
       })
       // console.log('Registration Successful!')
-      navigate('/home')
+      navigate('/')
     } catch (err) {
       console.log(err.message)
       console.log("Username or Email already in use.")

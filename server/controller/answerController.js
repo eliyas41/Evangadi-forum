@@ -22,8 +22,6 @@ async function allAnswer(req, res) {
   const questionId = req.headers['questionid'];
   // console.log(questionId)
   try {
-
-
     const [allanswer] = await dbConnection.query("SELECT answer from answers where questionid=?", [questionId])
     return res.status(200).json({ msg: "all answer retrieved succesfully", allanswer })
 

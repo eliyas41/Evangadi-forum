@@ -29,7 +29,7 @@ const LogIn = ({ setCurrentPage }) => {
       console.log('Login Successful!')
       // console.log(data)
       localStorage.setItem("token", data.token)
-      navigate('/home')
+      navigate('/')
     } catch (err) {
       console.log(err?.response?.data)
       console.log("Something went wrong!")
