@@ -8,12 +8,9 @@ import { AppState } from "../../App";
 const Home = () => {
   const { user, question } = useContext(AppState);
   // console.log(question);
-  // console.log(user.username);
+  console.log(user.username);
 
   const navigate = useNavigate();
-  const handleAnswerClick = () => {
-    navigate("/answer"); // Navigates to the "/answer" route
-  };
 
   const handleAskQuestionClick = () => {
     navigate("/questions"); // Navigates to the "/questions" route
@@ -37,7 +34,8 @@ const Home = () => {
           </button> */}
 
           <p className="fw-semibold">
-            <span className="text-warning">Welcome, </span>{user.username}
+            <span className="text-warning">Welcome, </span>
+            {/* {user.username} */}
           </p>
         </div>
 

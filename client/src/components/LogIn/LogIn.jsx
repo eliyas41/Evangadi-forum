@@ -59,7 +59,9 @@ const LogIn = ({ setCurrentPage }) => {
         </div>
 
         <div className='d-grid'>
-          <button type='submit' className='btn btn-primary action__btn fs-5 fw-semibold'>Log In</button>
+          <a href="">
+            <button type='submit' className='btn btn-primary action__btn fs-5 fw-semibold'>Log In</button>
+          </a>
         </div>
       </form>
     </div>
@@ -67,8 +69,3 @@ const LogIn = ({ setCurrentPage }) => {
 }
 
 export default LogIn;
-
-// Handles form submission for login page         . Redirects user to homepage if successful. Otherwise displays error message.
-// Handles form submission for login page. If the user is not logged in, it sends a post request with email and password data to /
-// Handles the submission of the login form. If successful, redirects user to dashboard page. Otherwise displays error message.
-// Handles form submission for login page. Redirects user to dashboard if successful.

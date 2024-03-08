@@ -14,16 +14,19 @@ function App() {
   const [question, setQuestion] = useState({})
 
   // console.log(question)
+  console.log(user)
 
   const token = localStorage.getItem("token");
+  // console.log(token)
   const navigate = useNavigate();
+
   async function checkUser() {
     try {
       const { data } = await axios.get("/users/check", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setuser(data);
-      console.log(data)
+      // console.log(data)
     } catch (error) {
       navigate("/Login");
       console.log(error.response);
@@ -52,7 +55,7 @@ function App() {
   }, []);
 
   return (
-    <AppState.Provider value={{ user, setuser, question, setQuestion }}>
+    <AppState.Provider value={{ user, setuser, question, setQuestion, token }}>
       <Routes>
         <Route path="/Login" element={<Landing />} />
         <Route path="/" element={<Home />} />

@@ -17,7 +17,7 @@ const Answer = () => {
   const questionid = queryParams.get("questionid");
 
   const { user } = useContext(AppState);
-  console.log(user, "sdfghjklkjhgfdfghjkl")
+  // console.log(user)
 
   //  console.log(questionid,user.userid)
 
