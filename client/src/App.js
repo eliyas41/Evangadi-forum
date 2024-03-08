@@ -3,7 +3,7 @@ import Landing from "./pages/LandingLayout/LandingLayout";
 import Home from "./pages/Home/Home";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import axios from "./axiosConfig";
-import Question from "./components/Question/Question";
+import AskQuestion from "./components/AskQuestion/AskQuestion";
 import Answer from "./components/Asnwer/Asnwer";
 
 export const AppState = createContext();
@@ -33,7 +33,7 @@ function App() {
   async function getQuestion() {
 
     try {
-      const { data } = await axios.get('/question/getquestions', {
+      const { data } = await axios.get('/questions/all-questions', {
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -56,7 +56,7 @@ function App() {
       <Routes>
         <Route path="/Login" element={<Landing />} />
         <Route path="/" element={<Home />} />
-        <Route path="/questions" element={<Question />} />
+        <Route path="/questions" element={< AskQuestion />} />
         <Route path="/answer" element={<Answer />} />
       </Routes>
     </AppState.Provider>

@@ -38,7 +38,7 @@ const AskQuestion = () => {
 
     try {
       const response = await axios.post(
-        "/question/postquestions",
+        "/questions/postquestions",
         {
           questionid: questionid,
           userid: userid,
