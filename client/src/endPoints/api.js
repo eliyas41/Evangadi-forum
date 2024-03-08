@@ -6,3 +6,9 @@ const endPoints = {
   REGISTER: `${baseURL}/register`,
   ME: `${baseURL}/me`
 }
+
+let axiosInstance = axios.create({
+  baseURL: baseURL,
+});
+
+export { endPoints, axiosInstance }

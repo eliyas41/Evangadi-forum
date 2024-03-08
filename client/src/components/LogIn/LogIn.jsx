@@ -26,10 +26,10 @@ const LogIn = ({ setCurrentPage }) => {
         email: emailValue,
         password: passValue
       })
-      console.log('Registration Successful!')
+      console.log('Login Successful!')
       // console.log(data)
       localStorage.setItem("token", data.token)
-      navigate('/')
+      navigate('/home')
     } catch (err) {
       console.log(err?.response?.data)
       console.log("Something went wrong!")

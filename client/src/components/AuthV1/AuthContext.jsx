@@ -1,9 +1,3 @@
-import React from 'react'
-
-const AuthContext = () => {
-  return (
-    <div>AuthContext</div>
-  )
-}
-
-export default AuthContext
+import React, { createContext, useEffect, useReducer } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Cookie from "js-cookie"
