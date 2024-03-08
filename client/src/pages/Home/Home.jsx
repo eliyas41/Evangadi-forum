@@ -87,7 +87,7 @@ const Home = () => {
                   <div className="d-flex flex-column align-items-center gap-3">
                     {/* user */}
                     <div className="user-icon">
-                      <PiUserCircleDuotone />
+                      <PiUserCircleDuotone size={100} />
                     </div>
                     <div>{item.username}</div>
                   </div>

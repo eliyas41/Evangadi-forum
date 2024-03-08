@@ -18,6 +18,7 @@ const Answer = () => {
   const questionid = queryParams.get("questionid");
 
   const { user } = useContext(AppState);
+  console.log(user, "sdfghjklkjhgfdfghjkl")
 
   //  console.log(questionid,user.userid)
 
@@ -73,6 +74,7 @@ const Answer = () => {
 
       // console.log(response.data); // Log the response data
       setData(response.data);
+      console.log(response.data)
     } catch (error) {
       console.log(error.response);
     }
@@ -121,10 +123,10 @@ const Answer = () => {
                       <div className="user">
                         {/* user */}
                         <div>
-                          <PiUserCircleDuotone />
+                          <PiUserCircleDuotone size={100} />
                         </div>
                         {/* <div>Fitsum </div> */}
-                        <div>{item.username}</div>
+                        <div>{user.username}</div>
                       </div>
                       <div>
                         <p>{item.answer}</p>
