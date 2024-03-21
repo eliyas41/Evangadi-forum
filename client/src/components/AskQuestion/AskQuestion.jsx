@@ -21,6 +21,8 @@ const AskQuestion = () => {
     const tagValue = tagDom.current.value;
     const questionid = uuidv4();
     const userid = user.userid;
+
+    console.log(questionid)
     console.log(userid);
 
     if (

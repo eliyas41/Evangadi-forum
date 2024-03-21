@@ -35,7 +35,7 @@ const Home = () => {
 
           <p className="fw-semibold">
             <span className="text-warning">Welcome, </span>
-            {/* {user.username} */}
+            {user.username}
           </p>
         </div>
 

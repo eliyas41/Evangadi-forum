@@ -27,8 +27,10 @@ async function allQuestion(req, res) {
       ORDER BY questionid DESC
   `);
 
+    const questionid = allquestion[0].questionid;
+    // console.log(questionid)
 
-    return res.status(200).json({ msg: "all question retrieved succesfully", allquestion })
+    return res.status(200).json({ msg: "all question retrieved succesfully", allquestion, questionid })
 
   } catch (error) {
     console.log(error.message)
