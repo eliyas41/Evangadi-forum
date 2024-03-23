@@ -24,7 +24,7 @@ async function allQuestion(req, res) {
       SELECT q.questionid, q.userid, q.title, q.description, u.username
       FROM questions q
       JOIN users u ON q.userid = u.userid
-      ORDER BY questionid DESC
+      ORDER BY q.id DESC
   `);
 
     const questionid = allquestion[0].questionid;
