@@ -24,12 +24,6 @@ const authMiddleware = require("./middleware/authMiddleware");
 //json middleware to extract json data
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send({
-    message: "Success"
-  })
-})
-
 //use routes middleware
 app.use("/api/users", useRoutes);
 

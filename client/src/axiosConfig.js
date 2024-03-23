@@ -5,7 +5,7 @@ const axiosBaseUrl = axios.create({
   // baseURL: 'http://localhost:5500/api',
 
   //Render.com host
-  baseURL: 'https://evangadi-forum-1-88i0.onrender.com'
+  baseURL: 'https://evangadi-forum-1-88i0.onrender.com/api'
 })
 
 export default axiosBaseUrl
