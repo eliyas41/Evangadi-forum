@@ -30,7 +30,7 @@ const Header = () => {
           <div className="collapse navbar-collapse justify-content-end fw-semibold" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item align-items-center d-flex">
-                <a className="nav-link active" aria-current="page" href="http://localhost:3000/">Home</a>
+                <a className="nav-link active" aria-current="page" href="https://evangadi-forum-by-eliyas.vercel.app">Home</a>
               </li>
               <li className="nav-item align-items-center d-flex">
                 <a className="nav-link" href="#">How It Works</a>
@@ -43,13 +43,13 @@ const Header = () => {
 
               <li className="nav-item align-items-center d-flex">
                 {user ? (
-                  <Link className="nav-link" to="http://localhost:3000/login">
+                  <Link className="nav-link" to="https://evangadi-forum-by-eliyas.vercel.app/login">
                     <button className='btn btn-primary fw-bold px-5 action__btn' onClick={handleLogout}>
                       Logout
                     </button>
                   </Link>
                 ) : (
-                  <Link className="nav-link" to="http://localhost:3000/login">
+                  <Link className="nav-link" to="https://evangadi-forum-by-eliyas.vercel.app/login">
                     <button className='btn btn-primary fw-bold px-5 action__btn'>
                       Sign In
                     </button>
