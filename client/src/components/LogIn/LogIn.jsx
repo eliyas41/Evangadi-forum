@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from '../../axiosConfig';
+import { ClipLoader } from "react-spinners";
 
 const LogIn = ({ setCurrentPage }) => {
   const navigate = useNavigate();
@@ -8,9 +9,15 @@ const LogIn = ({ setCurrentPage }) => {
   // Reference for the username and password fields.
   const emailDom = useRef(null)
   const passwordDom = useRef(null)
+  const [loading, setLoading] = useState({
+    logIn: false
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    console.log(e.target.name);
+    if (e.target.name === "login") setLoading({ ...loading, logIn: true });
     // get values from the input fields
     let emailValue = emailDom.current.value
     let passValue = passwordDom.current.value
@@ -62,6 +69,18 @@ const LogIn = ({ setCurrentPage }) => {
         <div className='d-grid'>
           <a href="">
             <button type='submit' className='btn btn-primary action__btn fs-5 fw-semibold'>Log In</button>
+            <button
+              type="submit"
+              onClick={authHandler}
+              name="login"
+              className='btn btn-primary action__btn fs-5 fw-semibold'>
+              {loading.signIn ? (
+                <ClipLoader color="#000" size={15} />
+              ) : (
+                "Log In"
+              )}
+            </button>
+
           </a>
         </div>
       </form>
