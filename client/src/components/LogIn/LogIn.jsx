@@ -30,6 +30,7 @@ const LogIn = ({ setCurrentPage }) => {
       // console.log(data)
       localStorage.setItem("token", data.token)
       navigate('/')
+      window.location.reload();
     } catch (err) {
       console.log(err?.response?.data)
       console.log("Something went wrong!")
