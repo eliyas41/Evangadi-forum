@@ -74,7 +74,7 @@ const LogIn = ({ setCurrentPage }) => {
               onClick={authHandler}
               name="login"
               className='btn btn-primary action__btn fs-5 fw-semibold'>
-              {loading.signIn ? (
+              {loading.logIn ? (
                 <ClipLoader color="#000" size={15} />
               ) : (
                 "Log In"
