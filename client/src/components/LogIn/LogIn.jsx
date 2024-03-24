@@ -71,7 +71,7 @@ const LogIn = ({ setCurrentPage }) => {
             <button type='submit' className='btn btn-primary action__btn fs-5 fw-semibold'>Log In</button>
             <button
               type="submit"
-              onClick={authHandler}
+              onClick={handleSubmit}
               name="login"
               className='btn btn-primary action__btn fs-5 fw-semibold'>
               {loading.logIn ? (
