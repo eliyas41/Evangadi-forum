@@ -28,7 +28,7 @@ function App() {
       setuser(data);
       // console.log(data)
     } catch (error) {
-      navigate("/Login");
+      navigate("/login");
       console.log(error.response);
     }
   }
@@ -57,7 +57,7 @@ function App() {
   return (
     <AppState.Provider value={{ user, setuser, question, setQuestion, token }}>
       <Routes>
-        <Route path="/Login" element={<Landing />} />
+        <Route path="/login" element={<Landing />} />
         <Route path="/" element={<Home />} />
         <Route path="/questions" element={< AskQuestion />} />
         <Route path="/answer" element={<Answer />} />

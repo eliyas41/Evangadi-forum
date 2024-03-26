@@ -33,14 +33,14 @@ const LogIn = ({ setCurrentPage }) => {
         email: emailValue,
         password: passValue
       })
-      console.log('Login Successful!')
+      alert('Login Successful!')
       // console.log(data)
       localStorage.setItem("token", data.token)
       navigate('/')
       window.location.reload();
     } catch (err) {
       console.log(err?.response?.data)
-      console.log("Something went wrong!")
+      alert("Something went wrong!")
     }
   }
 

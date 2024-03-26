@@ -39,8 +39,8 @@ const SignUp = ({ setCurrentPage }) => {
         email: emailValue,
         password: passValue
       })
-      // console.log('Registration Successful!')
-      navigate('/')
+      alert('Registration Successful, please login!')
+      navigate('/login')
     } catch (err) {
       console.log(err.message)
       console.log("Username or Email already in use.")

@@ -57,9 +57,6 @@ const AskQuestion = () => {
       tagDom.current.value = "";
       console.log(response, "response");
 
-      //  if(response.status==201){
-      //   setMessage(response.data.msg)
-      //  }
       setTimeout(() => {
         navigate("/");
         window.location.reload();
