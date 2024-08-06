@@ -20,6 +20,16 @@ app.use("/api/users", userRoutes);
 app.use("/api/questions", questionRoutes);
 app.use("/api/answers", authMiddleware, answerRoutes);
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  if (err.type === 'entity.parse.failed') {
+    res.status(400).json({ error: 'Invalid JSON' });
+  } else {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  }
+});
+
 // Start the database connection and the server
 async function start() {
   try {
