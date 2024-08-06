@@ -1,0 +1,383 @@
+.container {
+  padding-top: 150px;
+}
+.header_row {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 120px 20px 30px;
+}
+.blue_button {
+  background-color: #516cf0;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0px 70px;
+}
+.header_border {
+  color: black;
+  font-weight: bold;
+}
+.search {
+  display: flex;
+  justify-content: space-between;
+}
+.search_bar {
+  width: 35%;
+  border: 0.5px solid;
+  border-radius: 5px;
+  padding-left: 15px;
+}
+.authfy-login {
+  height: 600px;
+  margin: 40px auto 25px;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(158, 158, 158, 0.12);
+  border-radius: 8px;
+}
+
+.authfy-login .authfy-panel {
+  padding: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+}
+
+.authfy-panel .authfy-heading {
+  margin-bottom: 30px;
+}
+
+.authfy-login .auth-title {
+  font-weight: 700;
+  margin-top: 40px;
+}
+
+.authfy-login .authfy-panel.active {
+  opacity: 1;
+  transform: translateX(0);
+  -webkit-transform: translateX(0);
+}
+
+.authfy-login .social-buttons a {
+  color: white;
+}
+
+.authfy-login .social-buttons a:hover {
+  color: white;
+  opacity: 0.9;
+}
+
+.authfy-login .social-buttons .btn-facebook {
+  background: #3b5998;
+}
+.authfy-login .social-buttons .btn-twitter {
+  background: #00aced;
+}
+.authfy-login .social-buttons .btn-google {
+  background: #c32f10;
+}
+
+.authfy-login .loginOr {
+  position: relative;
+  font-size: 1.5em;
+  color: #aaa;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.authfy-login .loginOr .hrOr {
+  background-color: #cdcdcd;
+  height: 1px;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.authfy-login .loginOr .spanOr {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -0.75em;
+  margin-left: -1.5em;
+  background-color: white;
+  width: 3em;
+  text-align: center;
+}
+
+.panel-login .remember-row {
+  margin-bottom: 10px;
+}
+
+.panel-login .remember-row label {
+  font-weight: normal;
+  position: relative;
+  cursor: pointer;
+  color: #666;
+  padding-left: 24px;
+}
+
+.authfy-login .forgotPwd {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.panel-login .form-control,
+.panel-signup .form-control,
+.panel-forgot .form-control {
+  color: #333333;
+  font-size: 16px;
+  height: 50px;
+  padding: 12px;
+  outline: none;
+  border: 0 none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.panel-login .form-control:focus + .focus-input:before,
+.panel-signup .form-control:focus + .focus-input:before,
+.panel-forgot .form-control:focus + .focus-input:before {
+  width: 100%;
+}
+
+.wrap-input {
+  width: 100%;
+  position: relative;
+}
+
+.focus-input {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.focus-input:before {
+  background-color: #fe8402;
+  content: "";
+  width: 0;
+  height: 2px;
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.authfy-panel.panel-forgot {
+  padding-top: 85px;
+}
+
+.pwdMask {
+  position: relative;
+}
+
+.pwdMask .pwd-toggle {
+  color: #cccccc;
+  position: absolute;
+  z-index: 2;
+}
+
+.panel-login .pwdMask .pwd-toggle {
+  top: 12px;
+  right: 15px;
+}
+
+.panel-signup .pwdMask .pwd-toggle {
+  top: 15px;
+  right: 15px;
+}
+
+.pwdMask .pwd-toggle:hover,
+.pwdMask .pwd-toggle:focus {
+  cursor: pointer;
+}
+
+.pwdMask .pwd-toggle:hover,
+.pwdMask .pwd-toggle:focus,
+.pwdMask .pwd-toggle.fa-eye {
+  color: #fe8402;
+}
+
+.panel-signup .term-policy a {
+  text-decoration: underline;
+}
+
+@media (min-width: 320px) and (max-width: 375px) {
+  .authfy-login .authfy-panel {
+    padding: 32px;
+  }
+
+  .panel-login .remember-row {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .authfy-heading p {
+    font-size: 14px;
+  }
+
+  .remember-row .col-sm-6 {
+    width: 100%;
+  }
+
+  .authfy-login .forgotPwd {
+    text-align: left;
+    margin-top: 0px;
+  }
+}
+
+@media (min-width: 720px) {
+  .authfy-login {
+    height: 515px;
+    max-width: 700px;
+  }
+  .quote-bloc {
+    padding-top: 80px;
+  }
+  .navbar-brand img {
+    width: 200px;
+  }
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 26px;
+  overflow-x: hidden;
+  color: #62626f;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lato", sans-serif;
+  margin-bottom: 10px;
+  line-height: 24px;
+  font-weight: 700;
+  line-height: 1.4em;
+}
+
+h1 span,
+h2 span,
+h3 span,
+h4 span,
+h5 span,
+h6 span {
+  display: block;
+}
+
+h1 {
+  font-size: 38px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 1.4em;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.4s ease;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  font-weight: 400;
+}
+
+hr.hr {
+  margin: 50px 0;
+  opacity: 0.75;
+}
+
+.row-centered {
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+.col-centered {
+  display: inline-block;
+  float: none;
+  text-align: center;
+}
+
+.color-white {
+  color: #fff !important;
+}
+
+.color-black {
+  color: #222;
+}
+
+.warpper {
+  width: 100%;
+  height: 100%;
+}
+
+.bg-color {
+  background-color: #fafafa;
+}
+
+.bg-color-2 {
+  background-color: #fff;
+}
+
+.bg-color-3 {
+  background-color: #8ad62b;
+}

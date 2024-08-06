@@ -1,47 +1,39 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
-const PORT = 5500;
-
-const cors = require('cors')
-app.use(cors())
-
-//db connection
-const dbconnection = require("./db/dbConfig");
-
-//use routes middleware file imported
-const useRoutes = require("./routes/userRoute");
-
-//question routes middleware file imported
+const cors = require("cors");
+const dbConnection = require("./db/dbConfig");
+const userRoutes = require("./routes/userRoute");
 const questionRoutes = require("./routes/questionRoute");
-
-//answer routes middleware file imported
 const answerRoutes = require("./routes/answerRoute");
+const authMiddleware = require("./middleware/authMiddlewares");
 
-//authentication middleware file
-const authMiddleware = require("./middleware/authMiddleware");
+const port = 5000;
+const app = express();
 
-//json middleware to extract json data
-app.use(express.json());
+// Enable CORS for all routes
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // JSON middleware to parse JSON requests
 
-//use routes middleware
-app.use("/api/users", useRoutes);
+// Route handlers
+app.use("/api/users", userRoutes);
+app.use("/api/questions", questionRoutes);
+app.use("/api/answers", authMiddleware, answerRoutes);
 
-//question routes middleware
-app.use("/api/questions", authMiddleware, questionRoutes)
-
-//answer routes middleware
-app.use("/api/answers", authMiddleware, answerRoutes)
-
-const start = async () => {
+// Start the database connection and the server
+async function start() {
   try {
-    const result = await dbconnection.execute("select 'test' ");
-    await app.listen(PORT);
-    console.log("database connection established");
-    console.log(`listening on port ${PORT}`);
+    // Test the database connection
+    const [result] = await dbConnection.execute("SELECT 'test' as test");
+    console.log("Database test result:", result);
+
+    app.listen(port, () => {
+      console.log(`Database connection is established`);
+      console.log(`Listening on port ${port}`);
+    });
   } catch (error) {
-    console.log(error.message);
+    console.log("Error connecting to the database:", error.message);
   }
-};
+}
 
 start();

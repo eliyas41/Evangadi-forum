@@ -1,17 +1,23 @@
-.action__btn:hover{
-  background-color: #FE8402 !important;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.nav-item a:hover{
-  color: #FE8402;
+body {
+  font-size: 16px;
+  color: #191919;
+  font-family: "Poppins", sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
 
-.landing{
+body {
   height: 100vh;
+  background-image: url("./assests/Images/bg.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
-.custom-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 100 !important;
+body > .body-no-bg {
+  background: #fff; /* Set background color for pages without background image */
 }

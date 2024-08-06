@@ -1,36 +1,133 @@
-const dbConnection = require('../db/dbConfig')
+const dbConnection = require("../db/dbConfig");
+const { StatusCodes } = require("http-status-codes");
 
-async function postAnswer(req, res) {
-  const { userid, questionid, answer } = req.body;
-  if (!questionid || !userid || !answer) {
-    return res.status(400).json({ msg: "please provide all required fields" })
+// New Answer Handler
+async function newanswer(req, res) {
+  const { question_id, answer } = req.body;
+
+  // Validation
+  if (!question_id || !answer) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Not all fields have been provided!" });
   }
-  //insert data into answers table
+
   try {
-    await dbConnection.query("INSERT INTO answers (userid,questionid,answer) VALUES (?,?,?)", [userid, questionid, answer])
-    return res.status(201).json({ msg: "answer posted" })
+    // Insert data into the answer table
+    const [result] = await dbConnection.query(
+      `INSERT INTO answer(userid, question_id, answer, time) VALUES (?, ?, ?, ?)`,
+      [req.user.userid, question_id, answer, new Date()]
+    );
 
-  } catch (error) {
-    console.log(error.message)
-    return res.status(500).json({ msg: "something went wrong, try again later" })
+    return res.status(StatusCodes.OK).json({
+      msg: "New Answer added successfully",
+      data: result,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "Database connection error" });
   }
-
 }
-async function allAnswer(req, res) {
-  // const questionid = req.query.questionid;
 
-  const questionId = req.headers['questionid'];
-  // console.log(questionId)
+// Get Answers by Question ID Handler
+async function getanswers(req, res) {
+  const { question_id } = req.params;
+
   try {
-    const [allanswer] = await dbConnection.query("SELECT answer from answers where questionid=?", [questionId])
-    return res.status(200).json({ msg: "all answer retrieved succesfully", allanswer })
+    const [results] = await dbConnection.query(
+      `SELECT answer.answer, answer.time, registration.username 
+       FROM answer 
+       LEFT JOIN registration ON answer.userid = registration.userid 
+       WHERE answer.question_id = ? 
+       ORDER BY answer.time ASC`,
+      [question_id]
+    );
 
+    if (results.length === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "No answers found for this question" });
+    }
+
+    return res.status(StatusCodes.OK).json({ data: results });
   } catch (error) {
-    console.log(error.message)
-    return res.status(500).json({ msg: "something went wrong, try again later" })
+    console.log(error.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "Database connection error" });
   }
-
 }
 
+// Update Answer Handler
+async function updateanswer(req, res) {
+  const { answer_id } = req.params;
+  const { answer } = req.body;
 
-module.exports = { postAnswer, allAnswer };
+  // Validation
+  if (!answer) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Not all fields have been provided!" });
+  }
+
+  try {
+    const { userid } = req.user; // Extracting userid from req.user
+    const [result] = await dbConnection.query(
+      `UPDATE answer SET answer = ? WHERE answer_id = ? AND userid = ?`,
+      [answer, answer_id, userid]
+    );
+
+    if (result.affectedRows === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "Answer not found or unauthorized" });
+    }
+
+    return res.status(StatusCodes.OK).json({
+      msg: "Answer updated successfully",
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "Database connection error" });
+  }
+}
+
+// Delete Answer Handler
+async function deleteanswer(req, res) {
+  const { answer_id } = req.params;
+
+  try {
+    const { userid } = req.user; // Extracting userid from req.user
+    const [result] = await dbConnection.query(
+      `DELETE FROM answer WHERE answer_id = ? AND userid = ?`,
+      [answer_id, userid]
+    );
+
+    if (result.affectedRows === 0) {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "Answer not found or unauthorized" });
+    }
+
+    return res.status(StatusCodes.OK).json({
+      msg: "Answer deleted successfully",
+    });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "Database connection error" });
+  }
+}
+
+// Exporting all methods
+module.exports = {
+  newanswer,
+  getanswers,
+  updateanswer,
+  deleteanswer,
+};

@@ -1,103 +1,142 @@
+// Required modules and db connection
+const dbConnection = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes");
-const jwt = require("jsonwebtoken")
-//db connection
-const dbconnection = require("../db/dbConfig");
+const jwt = require("jsonwebtoken");
 
-const register = async (req, res) => {
+// Register user
+async function register(req, res) {
   const { username, firstname, lastname, email, password } = req.body;
-  if (!email || !password || !firstname || !lastname || !username) {
+  if (!username || !firstname || !lastname || !email || !password) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please provide all required information!" });
+      .json({ msg: "Please provide all the required fields" });
   }
 
   try {
-    const [user] = await dbconnection.query(
-      "select username, userid from users where username = ? or email = ?",
+    // Check if user already exists
+    const [existingUser] = await dbConnection.query(
+      "SELECT username, userid FROM registration WHERE username=? OR email=?",
       [username, email]
     );
-    if (user.length > 0) {
+    if (existingUser.length > 0) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "User already registered" });
+        .json({ msg: "User already exists" });
     }
-
     if (password.length < 8) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "Password must be at least 8 characters!" });
+        .json({ msg: "Password must be at least 8 characters" });
     }
-    // console.log(password.length);
 
+    // Encrypt the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    // console.log(hashedPassword);
 
-    await dbconnection.query(
-      "INSERT INTO users(username, firstname, lastname, email, password) VALUES (?,?,?,?,?)",
-      [username, firstname, lastname, email, hashedPassword]
+    // Insert user into registration table
+    const [result] = await dbConnection.query(
+      "INSERT INTO registration(username, email, password) VALUES (?,?,?)",
+      [username, email, hashedPassword]
     );
 
-    //send data to front end
-    return res.status(StatusCodes.CREATED).json({ msg: "user registered" });
+    // Insert user profile into profile table
+    await dbConnection.query(
+      "INSERT INTO profile(userid, firstname, lastname) VALUES (?,?,?)",
+      [result.insertId, firstname, lastname]
+    );
+
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ msg: "User registered successfully" });
   } catch (error) {
     console.log(error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, please try later!" });
+      .json({ msg: "Something went wrong, try again later" });
   }
-};
+}
 
-const login = async (req, res) => {
+// Get user by ID
+async function getUserById(req, res) {
+  const userId = req.params.id;
+  try {
+    const [result] = await dbConnection.query(
+      `SELECT registration.userid, username, email, firstname, lastname 
+       FROM registration 
+       LEFT JOIN profile ON registration.userid = profile.userid 
+       WHERE registration.userid = ?`,
+      [userId]
+    );
+    if (result.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({ msg: "User not found" });
+    }
+    return res.status(StatusCodes.OK).json({ data: result[0] });
+  } catch (error) {
+    console.log(error.message);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ msg: "Database connection error" });
+  }
+}
+
+// Login user
+async function login(req, res) {
   const { email, password } = req.body;
   if (!email || !password) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please enter all required fields!" });
+      .json({ msg: "Please enter all the required fields" });
   }
 
   try {
-    const [user] = await dbconnection.query(
-      "select username, userid, password from users where email = ?",
+    const [user] = await dbConnection.query(
+      "SELECT userid, username, password FROM registration WHERE email = ?",
       [email]
     );
-    if (user.length == 0) {
+    if (user.length === 0) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "Invalid credential" });
+        .json({ msg: "Invalid credentials" });
     }
 
-    //compare password
     const isMatch = await bcrypt.compare(password, user[0].password);
-    // console.log(isMatch)
     if (!isMatch) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "Invalid credential" });
+        .json({ msg: "Invalid credentials" });
     }
-    const username = user[0].username
-    const userid = user[0].userid
-    let token = jwt.sign({ username, userid }, process.env.JWT_SECRET, { expiresIn: "1d" })
-    return res.status(StatusCodes.OK).json({ msg: "user login successful", token, username })
 
+    const token = jwt.sign({ id: user[0].userid }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
+    return res.status(StatusCodes.OK).json({
+      msg: "User logged in successfully",
+      token,
+      user: {
+        id: user[0].userid,
+        display_name: user[0].username,
+      },
+    });
   } catch (error) {
     console.log(error.message);
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, please try later!" });
+      .json({ msg: "Something went wrong, try again later" });
   }
-};
+}
 
-const checkUser = (req, res) => {
-  const username = req.user.username
-  const userid = req.user.userid
-  return res.status(StatusCodes.OK).json({ msg: "Valid user", username, userid })
-};
+// Check user (middleware)
+async function checkUser(req, res) {
+  const { username, userid } = req.user;
+  res.status(StatusCodes.OK).json({ msg: "Valid user", username, userid });
+}
 
+// Exporting all methods
 module.exports = {
   register,
+  getUserById,
   login,
   checkUser,
 };

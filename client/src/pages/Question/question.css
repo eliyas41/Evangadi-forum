@@ -1,0 +1,54 @@
+.header_row {
+  display: flex;
+  justify-content: space-between;
+  padding: 90px 20px 30px;
+}
+.blue_button {
+  background-color: #378ad3;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 0px 70px;
+}
+.question_list {
+  display: flex;
+  justify-content: space-between;
+}
+.header_question {
+  border: 0.01px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: normal;
+  display: flex;
+  justify-content: space-between;
+}
+.question_user {
+  display: inline-block;
+  width: 10%;
+  margin: auto;
+  align-items: center;
+}
+.question_title {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+}
+.question_content {
+  width: 95%;
+  height: 100%;
+}
+.question_arrow {
+  width: 5%;
+  height: 100%;
+}
+
+/* .body-with-bg {
+  width: 100%;
+  background-image: url(".././../assests/Images//bg-svg-f.svg");
+  background-size: cover;
+  background-position: center;
+} */
+
+/* Additional styles for login page */
